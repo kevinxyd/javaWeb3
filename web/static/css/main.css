@@ -1,0 +1,35 @@
+/*伪类元素*/
+a:hover{
+    text-decoration: none;
+}
+.list-group>.list-group-item.active{
+    background-color: darkred;
+    border-color: darkred;
+}
+
+.btn-default:hover{
+    cursor: pointer;
+}
+.mycaidan .list-group-item{
+    text-align: center;
+    border: 0;
+    padding: 18px 15px;
+    font-size: 16px;
+}
+.myxiao .col-xs-1{
+    padding-right: 0px;
+    padding-left: 10px;
+    margin-right: 5px;
+}
+.myxiao .title{
+    color: #0f0f0f;
+}.myxiao .title:hover{
+     color: #2aabd2;
+    text-decoration: #2aabd2;
+ }
+.mypadding{
+    padding: 10px 0px;
+}
+.myright{
+    padding-top: 16px;
+}

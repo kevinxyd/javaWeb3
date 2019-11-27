@@ -1,0 +1,57 @@
+1.el和jsp
+    使用JSP技术获取变量时，需要使用隐式对象（如这里的request）调用getAttribute()方法来实现，而EL表达式不需要调用隐式对象
+2.el内置对象（了解）
+    (1)pageScope：获取jsp中pageContext域属性，相当于pageContext.getAttribute("xxx")
+    (2)requestScope：获取request域属性，相当于request.getAttribute("xxx")
+    (3)sessionScope：获取session域属性，相当于session.getAttribute("xxx")
+    (4)applicationScope：获取application域属性，相当于application.getAttribute("xxx")
+    (5)param：对应参数，它是一个Map，其中key是参数，value是参数值，适用于单值的参数，相当于request.getParameter("xxx")
+    (6)paramValues：对应参数，她是一个Map，其中key是参数，value是多个参数值，适用于多值的参数，相当于request.getParameterValues("xxx")
+    (7)header：对应请求头，它是一个Map，其中key表示头名称，value是单个头值，适用于单值的请求头，相当于request.getHeader("xxx")
+    (8)headerValues：对应请求头，它是一个Map，其中key表示头名称，value是多个头值，适用于多值的请求头，相当于request.getHeaders("xxx")
+    (9)initParam：获取web.xml中<context-param>内的参数，${ initParam.xxx}，xxx就是<param-name>标签内的值，进而得到<param-value>中的值
+    (10)cookie：用于获取cookie，Map<String,Cookie>，其中key是cookie的name，value是cookie对象，例如${cookie.JSESSIONID.value }就是获取sessionId
+    (11)pageContext：可以获取JSP九大内置对象，相当于使用该对象调用getxxx()方法，例如pageContext.getRequest()可以写为${pageContext.request)
+3.el作用域
+    四大作用域：page，request，session，application
+4.el中的pageContext
+    管理网页属性,为JSP页面包装页面的上下文，管理对属于JSP中特殊可见部分中已命名对象的访问，它的创建和初始化都是由容器来完成的
+5.el获取javaBean，list,map
+    ${对象.属性}
+    list、map通过foreach遍历
+6.jstl forEach,forTokens,set,out,if,choose
+    <c:foreach var="变量" items="${参数，集合}"></c:foreach>
+    <c:forTokens items="" delims=""></c:forTokens>
+    <c:set value=""></c:set>
+    <c:out value=""></c:out>
+    <c:if test="${表达式}"></c:if>
+7.fmt(date和字符串)
+    转为date<fmt:parseDate var="birthDate" value="${k.createTime}" pattern="yyyy-MM-dd HH:mm:ss"></fmt:parseDate>
+    转换格式<fmt:formatDate value="${birthDate}" pattern="yyyy年MM月dd日"></fmt:formatDate>
+8.functions
+    fn:contains(string, substring)
+    假如参数string中包含参数substring，返回true
+    fn:containsIgnoreCase(string, substring)
+    假如参数string中包含参数substring（忽略大小写），返回true
+    fn:endsWith(string, suffix)
+    假如参数 string 以参数suffix结尾，返回true
+    fn:escapeXml(string)
+    将有非凡意义的XML (和HTML)转换为对应的XML character entity code，并返回
+    fn:indexOf(string, substring)
+    返回参数substring在参数string中第一次出现的位置
+    fn:join(array, separator)
+    将一个给定的数组array用给定的间隔符separator串在一起，组成一个新的字符串并返回。
+    fn:length(item)
+    返回参数item中包含元素的数量。参数Item类型是数组、collection或者String。假如是String类型,返回值是String中的字符数。
+    fn:replace(string, before, after)
+    返回一个String对象。用参数after字符串替换参数string中所有出现参数before字符串的地方，并返回替换后的结果
+    fn:split(string, separator)
+    返回一个数组，以参数separator 为分割符分割参数string，分割后的每一部分就是数组的一个元素
+
+9.自定义标签库
+    第一步： 编写一个标签类继承SimpleTagSupport或BodyTagSupport； 重写doTag或doStartTag方法；
+            在doTag或doStartTag方法中使用JspWriter 对象输出格式。JspWriter out = this.getJspContext().getOut()获得out对象,可以输出jsp内
+    第二步：编写一个 tld 标签文件 在web项目的WEB-INF目录下建立tld文件（my.tld），这个tld文件为标签库的声明文件，并配置好相应 的信息
+            tld 文件的格式可以参考 jstl 的 jar 包中的 tld 文件格式
+    第三步：界面调用
+            <my:helloworld username="张三" />

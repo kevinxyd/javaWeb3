@@ -1,0 +1,45 @@
+1.bs/cs
+
+bs是针对浏览器端对服务端进行的开发，而cs是针对客户端对服务端的开发前者主要用于web，
+便于更新，没有特殊硬件要求，而后者则需要下载客户端，软件升级期间不能操作，但相对于前者在数据的安全性方面更佳
+
+2.tomcat安装，重点是3个配置文件
+    server.xml  web.xml context.xml
+3. 1.txt显示出来
+    创建文件夹并创建1.text文件，将文件放入tomcat下的webapps下，启动bin文件夹下的stratup.bat文件，用于启动服务器
+    的启动，启动完成后打开浏览器输入文件地址即可访问
+4.idea集成tomcat(安装，打包，部署)
+    将tomcat调试出来，找到tomcat安装路径选中即可，打包--进入项目设置，点击所需打包选项，选中要打包的项目即可，部署
+    时添加项目，并把下方地址改为/即可
+5.不用idea部署项目
+    先运行项目，将运行后的out下的文件放入tomcat webapps下，启动tomcat即可
+6.登录成功（servlet）
+    创建java类并继承httpservlet 同时重写doget dopost 或者service方法，配置web.xml文件，配置初始化jsp页面，配置servlet类
+    并映射该类地址，创建jsp文件，编写表单页面，提交地址为映射地址，启动项目，点击提交服务器会先加载web.xml文件，通过映射找到
+    servlet文件，进入doget或dopost或service方法，接收数据用request对象的getPartamer方法，判断数据是否正确
+7.web.xml和tomcat中的welcome-file-list
+    web.xml中设置这个标签会优先加载该标签的页面，而tomcat中的这个标签为默认加载的页面
+8.映射路径
+    <servlet>
+        <servlet-name>LoginServlet</servlet-name>
+        要映射的类名，路径为相对路径
+        <servlet-class>com.x.servlet.LoginServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        名字与上方的名字相同
+        <servlet-name>LoginServlet</servlet-name>
+        映射的地址
+        <url-pattern>/login</url-pattern>
+    </servlet-mapping>
+9.常见错误 400 500
+    404页面资源未找到 500代码逻辑错误
+10.servlet生命周期
+    类装载过程
+    init() 初始化过程
+    service() 服务过程，选择doGet \ doPost
+    destroy() 销毁过程
+    创建 == 初始化 == 业务处理 == 销毁
+11.参数设置
+    调用init进行初始化， 其中的ServletConfig参数对象携带了该servlet的配置信息，比如初始化参数，此ServletConfig参数由服务器创建。
+12.启动顺序
+    首先加载web.xml中的配置信息，当发送第一次请求时将初始化init方法，之后调用doget或dopost方法，当关闭服务器时调用销毁的方法
