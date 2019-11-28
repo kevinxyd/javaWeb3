@@ -9,7 +9,6 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.util.UUID;
 
 @WebServlet("/login")
 public class LoginServlet extends HttpServlet {
@@ -23,6 +22,7 @@ public class LoginServlet extends HttpServlet {
         User users = userService.login(username, age);
         if (users!=null){
             req.getSession().setAttribute("user",users);
+            req.getSession().setMaxInactiveInterval(30*60);
             req.getRequestDispatcher( "/list").forward(req, resp);
         }else {
             resp.sendRedirect("/index.jsp");

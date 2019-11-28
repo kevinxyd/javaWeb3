@@ -1,3 +1,4 @@
+/*
 package com.x.filter;
 
 
@@ -24,9 +25,6 @@ public class FilterLogin implements Filter {
 
     @Override
     public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain filterChain) throws IOException, ServletException {
-        servletResponse.setContentType("text/html;charset=UTF-8");
-        servletRequest.setCharacterEncoding("utf-8");
-        servletResponse.setCharacterEncoding("utf-8");
         HttpServletRequest request = (HttpServletRequest)servletRequest;
         HttpServletResponse response = (HttpServletResponse)servletResponse;
 
@@ -51,3 +49,4 @@ public class FilterLogin implements Filter {
         }
     }
 }
+*/
