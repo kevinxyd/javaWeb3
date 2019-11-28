@@ -30,10 +30,14 @@
 
     <h1 class="text-center">查询</h1>
     <div class="col-md-12 col-lg-12 col-sm-12 col-xs-12">
+        <form action="/list" method="post" class="text-center">
+            姓名：<input type="text" name = "name" value="${name}">
+            <input type="submit" value="查询" class="btn-primary" placeholder="输入姓名关键字查询">
+        </form>
         <a href="add.jsp" class="btn btn-primary text-left col-md-1">添加</a>
-        <a href="index.jsp" class="btn btn-danger text-right col-md-offset-10">退出</a>
+        <a href="<%=basePath%>exit" class="btn btn-danger text-right col-md-offset-10">退出</a>
     </div>
-    <br><br>
+    <br><br> <br><br>
     <table class="table table-striped text-center table-hover">
         <tr>
             <td>序号</td>
@@ -59,6 +63,19 @@
             </tr>
         </c:forEach>
     </table>
+    <br>
+    <div class="text-center">
+        <h4>当前页：${page.currPage}，总页数：${page.totalPage},总记录数：${page.totalNumber},每页显示记录数：${page.rows}</h4>
+        <c:if test="${page.currPage!=1 }">
+            <a href="/list?page=1&name=${name}" class="btn btn-success">首页</a>
+            <a href="/list?page=${(page.currPage-1)}&name=${name}" class="btn btn-success">上一页</a>
+        </c:if>
+        <c:if test="${page.currPage!=page.totalPage}">
+        <a href="/list?page=${(page.currPage+1)}&name=${name}" class="btn btn-success">下一页</a>
+        <a href="/list?page=${page.totalPage}" class="btn btn-success">尾页</a>
+        </c:if>
+    </div>
+
 </div>
 </body>
 </html>

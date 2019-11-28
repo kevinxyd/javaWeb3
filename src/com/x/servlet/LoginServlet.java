@@ -9,34 +9,25 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.util.List;
+import java.util.UUID;
 
 @WebServlet("/login")
 public class LoginServlet extends HttpServlet {
     @Override
-    protected void doGet(HttpServletRequest req, HttpServletResponse resp) {
-
-
-    }
-    @Override
-    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws IOException, ServletException {
-        resp.setContentType("text/html;charset=UTF-8");
-        req.setCharacterEncoding("utf-8");
-        String contextPath = req.getContextPath();
+    protected void service(HttpServletRequest req, HttpServletResponse resp) throws IOException, ServletException {
         UserService userService = new UserService();
         String username = req.getParameter("username");
-        Integer age = Integer.valueOf(req.getParameter("age"));
-        if (username.equals("武大郎")&&age==56){
-            User users = userService.login(username, age);
-
-            List<User> listUser = userService.listUser();
-            if (users != null){
-                req.setAttribute("list",listUser);
-                req.getRequestDispatcher(contextPath + "/sucess.jsp").forward(req,resp);
-            }else {
-                resp.sendRedirect("/index.jsp");
-            }
+        String age1 = req.getParameter("age");
+        System.out.println(age1);
+        Integer age =  age1 == null || age1 == "" ? (int)System.currentTimeMillis() : Integer.valueOf(age1);
+        User users = userService.login(username, age);
+        if (users!=null){
+            req.getSession().setAttribute("user",users);
+            req.getRequestDispatcher( "/list").forward(req, resp);
+        }else {
+            resp.sendRedirect("/index.jsp");
         }
 
     }
+
 }

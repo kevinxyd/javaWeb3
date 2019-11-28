@@ -19,10 +19,6 @@ public class AddServlet extends HttpServlet {
 
     @Override
     protected void service(HttpServletRequest req, HttpServletResponse resp) throws IOException, ServletException {
-        resp.setContentType("text/html;charset=UTF-8");
-        req.setCharacterEncoding("utf-8");
-        resp.setCharacterEncoding("utf-8");
-        String contextPath = req.getContextPath();
         UserService userService = new UserService();
         User user = new User();
         Map<String, String[]> parameterMap = req.getParameterMap();
@@ -34,8 +30,6 @@ public class AddServlet extends HttpServlet {
             e.printStackTrace();
         }
         userService.addUser(user);
-        List<User> listUser = userService.listUser();
-        req.setAttribute("list",listUser);
-        req.getRequestDispatcher(contextPath + "/sucess.jsp").forward(req,resp);
+        resp.sendRedirect("/list");
     }
 }

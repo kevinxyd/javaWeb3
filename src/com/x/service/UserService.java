@@ -2,6 +2,7 @@ package com.x.service;
 
 
 import com.x.dao.UserDao;
+import com.x.pojo.PageUtils;
 import com.x.pojo.User;
 
 import java.text.SimpleDateFormat;
@@ -15,10 +16,12 @@ public class UserService {
         return userDao.login(name,age);
     }
 
-    public List<User> listUser() {
-        return userDao.listUser();
+    public List<User> listUser(String name, PageUtils page) {
+        return userDao.listUser(name,page);
     }
-
+    public Integer count(String name) {
+        return userDao.count(name);
+    }
     public void deleteUserById(Integer id) {
         userDao.deleteUserById(id);
     }

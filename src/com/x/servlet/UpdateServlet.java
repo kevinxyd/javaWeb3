@@ -18,8 +18,6 @@ import java.util.Map;
 public class UpdateServlet extends HttpServlet {
     @Override
     protected void service(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        resp.setContentType("text/html;charset=UTF-8");
-        req.setCharacterEncoding("utf-8");
         User user = new User();
         Map<String, String[]> parameterMap = req.getParameterMap();
         try {
@@ -31,8 +29,6 @@ public class UpdateServlet extends HttpServlet {
         }
         UserService userService = new UserService();
         userService.updateUser(user);
-        List<User> listUser = userService.listUser();
-        req.setAttribute("list",listUser);
-        req.getRequestDispatcher("/sucess.jsp").forward(req,resp);
+        resp.sendRedirect("/list");
     }
 }
